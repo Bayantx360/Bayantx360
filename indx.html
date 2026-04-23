@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayantx360 | AI & Analytics Ecosystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            /* ── Dark system ── */
+            --bg-deep:        #04060f;
+            --bg-base:        #070c1a;
+            --bg-surface:     #0a1020;
+            --bg-card:        #0d1528;
+
+            /* ── Light contrast zones ── */
+            --lc-bg:          #f4f7ff;
+            --lc-card:        #ffffff;
+            --lc-border:      rgba(14,100,200,0.12);
+            --lc-text-1:      #0a1628;
+            --lc-text-2:      #3a5070;
+            --lc-text-3:      #7a90b0;
+
+            /* ── Borders ── */
+            --border:         rgba(255,255,255,0.06);
+            --border-hi:      rgba(62,210,255,0.32);
+
+            /* ── Accent ── */
+            --cyan:           #2dd4f5;
+            --cyan-dim:       rgba(45,212,245,0.08);
+            --cyan-mid:       rgba(45,212,245,0.17);
+            --indigo:         #818cf8;
+            --indigo-dim:     rgba(129,140,248,0.08);
+
+            /* ── Typography (dark context) ── */
+            --text-1:         #e8f2ff;
+            --text-2:         #7a90b8;
+            --text-3:         #3a4f6a;
+
+            --font-display:   'Syne', sans-serif;
+            --font-body:      'DM Sans', sans-serif;
+            --font-mono:      'Fira Code', monospace;
+            --radius-card:    20px;
+            --radius-btn:     12px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--text-1);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 4px; }
+
+        /* ── UTILITIES ── */
+        .mono { font-family: var(--font-mono); }
+        .display { font-family: var(--font-display); }
+
+        /* ════════════════════════════════════
+           LIGHT CONTRAST ZONE
+           Applied to sections that use the
+           inverted light background system
+        ════════════════════════════════════ */
+        .lc {
+            background: var(--lc-bg);
+            color: var(--lc-text-1);
+            border-top: 1px solid rgba(14,100,200,0.1);
+            border-bottom: 1px solid rgba(14,100,200,0.1);
+        }
+        .lc .section-header h2   { color: var(--lc-text-1); }
+        .lc .section-header p    { color: var(--lc-text-2); }
+        .lc .tag                 {
+            border-color: rgba(14,100,200,0.2);
+            background:   rgba(14,100,200,0.07);
+            color:        #0a6fd4;
+        }
+        .lc .accent-line {
+            background: linear-gradient(90deg, #0a6fd4, #4a5fcf);
+        }
+        .lc .step-card {
+            background:   var(--lc-card);
+            border-color: var(--lc-border);
+            box-shadow:   0 2px 20px rgba(10,40,100,0.06);
+        }
+        .lc .step-card:hover {
+            border-color: rgba(14,100,200,0.28);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 36px rgba(14,100,200,0.1);
+        }
+        .lc .step-num            { color: #0a6fd4; }
+        .lc .step-num::before    { background: #0a6fd4; }
+        .lc .step-card h4        { color: var(--lc-text-1); }
+        .lc .step-card p         { color: var(--lc-text-2); }
+        .lc .faq-item            {
+            background:   var(--lc-card);
+            border-color: var(--lc-border);
+            box-shadow:   0 1px 10px rgba(10,40,100,0.05);
+        }
+        .lc .faq-item.open       { border-color: rgba(14,100,200,0.25); }
+        .lc .faq-q               { color: var(--lc-text-1); }
+        .lc .faq-q:hover         { color: #0a6fd4; }
+        .lc .faq-icon            {
+            background:   #edf2fc;
+            border-color: rgba(14,100,200,0.12);
+            color:        var(--lc-text-2);
+        }
+        .lc .faq-item.open .faq-icon {
+            background: rgba(14,100,200,0.1);
+            color:      #0a6fd4;
+        }
+        .lc .faq-a-inner         { color: var(--lc-text-2); }
+        /* ════════════════════════════════════ */
+
+        .glass {
+            background: rgba(7,12,26,0.72);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--border);
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(45,212,245,0.22);
+            background: rgba(45,212,245,0.06);
+            color: var(--cyan);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        .dot-live {
+            position: relative;
+            display: inline-flex;
+            width: 7px; height: 7px;
+        }
+        .dot-live span {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: var(--cyan);
+        }
+        .dot-live span:first-child {
+            animation: ping 1.5s cubic-bezier(0,0,.2,1) infinite;
+            opacity: .7;
+        }
+
+        @keyframes ping {
+            75%, 100% { transform: scale(2.2); opacity: 0; }
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: var(--cyan);
+            color: #04060f;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            text-decoration: none;
+            transition: background .2s, box-shadow .2s, transform .15s;
+            box-shadow: 0 0 28px rgba(45,212,245,0.28), 0 4px 14px rgba(45,212,245,0.18);
+            white-space: nowrap;
+        }
+        .btn-primary:hover {
+            background: #7ae8f8;
+            box-shadow: 0 0 44px rgba(45,212,245,0.48), 0 6px 20px rgba(45,212,245,0.28);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 28px;
+            background: transparent;
+            color: var(--text-1);
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            text-decoration: none;
+            transition: border-color .2s, background .2s, transform .15s;
+            white-space: nowrap;
+        }
+        .btn-ghost:hover {
+            border-color: var(--border-hi);
+            background: var(--cyan-dim);
+            transform: translateY(-1px);
+        }
+
+        /* ── GRID LINES BACKGROUND ── */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(45,212,245,0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(45,212,245,0.035) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(4,6,15,0.88);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--cyan) 0%, #4f8fff 100%);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            color: var(--text-1);
+        }
+
+        .logo-text span { color: var(--cyan); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color .2s;
+        }
+        .nav-links a:hover { color: var(--cyan); }
+
+        .nav-cta { display: flex; align-items: center; gap: 12px; }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 40px; height: 40px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-1);
+            font-size: 16px;
+            transition: border-color .2s, background .2s;
+        }
+        .hamburger:hover { border-color: var(--border-hi); background: var(--cyan-dim); }
+
+        /* Mobile nav drawer */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 0;
+            top: 68px;
+            background: rgba(4,6,15,0.98);
+            backdrop-filter: blur(22px);
+            z-index: 99;
+            padding: 32px 24px;
+            flex-direction: column;
+            gap: 0;
+            border-top: 1px solid var(--border);
+        }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a {
+            display: block;
+            padding: 18px 0;
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-1);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: color .2s;
+        }
+        .mobile-nav a:hover { color: var(--cyan); }
+        .mobile-nav .mobile-cta {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            padding: 100px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(38px, 7vw, 86px);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -.03em;
+            color: var(--text-1);
+            margin-bottom: 28px;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(95deg, var(--cyan) 0%, #5eaaff 50%, var(--indigo) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(15px, 2vw, 18px);
+            color: var(--text-2);
+            max-width: 640px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(80px);
+        }
+        .orb-1 { width: 560px; height: 560px; background: rgba(45,212,245,0.065); top: -120px; left: 50%; transform: translateX(-50%); }
+        .orb-2 { width: 400px; height: 400px; background: rgba(79,110,255,0.055); bottom: -80px; right: -100px; }
+        .orb-3 { width: 300px; height: 300px; background: rgba(129,140,248,0.045); bottom: 100px; left: -60px; }
+
+        /* Hero code strip */
+        .hero-code {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(4,6,15,0.85);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-3);
+            margin-bottom: 36px;
+        }
+        .hero-code .cmd { color: var(--cyan); }
+        .hero-code .arg { color: var(--indigo); }
+
+        /* ── TRUST BANNER ── */
+        .trust {
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: rgba(10,16,32,0.6);
+            overflow: hidden;
+        }
+        .trust-label {
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: .35em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 28px;
+        }
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            opacity: .5;
+            transition: opacity .2s;
+        }
+        .trust-item:hover { opacity: .8; }
+        .trust-item i { color: var(--cyan); font-size: 14px; }
+
+        /* ── SECTION SHELL ── */
+        section { padding: 96px 24px; }
+        .section-inner { max-width: 1200px; margin: 0 auto; }
+
+        .section-header { text-align: center; margin-bottom: 64px; }
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 800;
+            letter-spacing: -.02em;
+            margin: 12px 0 18px;
+            color: var(--text-1);
+        }
+        .section-header p {
+            font-size: 15px;
+            color: var(--text-2);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .accent-line {
+            width: 40px; height: 3px;
+            background: linear-gradient(90deg, var(--cyan), #4f8fff);
+            border-radius: 2px;
+            margin: 0 auto;
+        }
+
+        /* ── PRODUCT CARDS ── */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 36px 32px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color .3s, transform .3s, box-shadow .3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card::before {
+            pointer-events: none;
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(45,212,245,0.06) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .product-card:hover {
+            border-color: rgba(45,212,245,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px rgba(45,212,245,0.08);
+        }
+        .product-card:hover {
+            border-color: var(--border-hi);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(62,232,255,0.08);
+        }
+        .product-card:hover::before { opacity: 1; }
+
+        .product-card.indigo:hover { border-color: rgba(129,140,248,0.35); }
+        .product-card.indigo::before { background: linear-gradient(135deg, var(--indigo-dim) 0%, transparent 60%); }
+
+        .product-card.stealth {
+            background: transparent;
+            border-style: dashed;
+            border-color: rgba(255,255,255,0.07);
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .product-card.stealth:hover {
+            border-color: rgba(45,212,245,0.22);
+            background: rgba(45,212,245,0.03);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 28px;
+            font-size: 20px;
+            border: 1px solid transparent;
+        }
+        .card-icon.cyan { background: rgba(45,212,245,0.08); border-color: rgba(45,212,245,0.15); color: var(--cyan); }
+        .card-icon.indigo { background: rgba(129,140,248,0.08); border-color: rgba(129,140,248,0.15); color: var(--indigo); }
+
+        .product-card h3 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: 10px;
+            letter-spacing: -.01em;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-2);
+            flex-grow: 1;
+            margin-bottom: 28px;
+        }
+
+        .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--cyan);
+            transition: gap .2s, opacity .2s;
+        }
+        .product-link:hover { gap: 14px; }
+        .product-link.indigo { color: var(--indigo); }
+
+        .lock-icon {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-3);
+            font-size: 18px;
+            margin-bottom: 18px;
+        }
+        .stealth-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 8px;
+        }
+        .stealth h3 {
+            font-family: var(--font-display);
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-2);
+            margin-bottom: 8px;
+        }
+        .stealth p {
+            font-size: 12px;
+            color: var(--text-3);
+            margin-bottom: 24px;
+        }
+        .btn-outline-cyan {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border: 1px solid rgba(62,232,255,0.35);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--cyan);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background .2s, border-color .2s;
+            cursor: pointer;
+        }
+        .btn-outline-cyan:hover { background: var(--cyan-dim); border-color: var(--cyan); }
+
+        /* ── HOW IT WORKS ── */
+        /* background handled by .lc class */
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 36px 28px;
+            position: relative;
+        }
+
+        .step-num {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .15em;
+            color: var(--cyan);
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .step-num::before {
+            content: '';
+            display: inline-block;
+            width: 20px; height: 1px;
+            background: var(--cyan);
+        }
+
+        .step-card h4 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: 10px;
+            letter-spacing: -.01em;
+        }
+        .step-card p { font-size: 13px; line-height: 1.7; color: var(--text-2); }
+
+        /* ── PRICING ── */
+        .pricing-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .pricing-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .pricing-left { padding: 52px; border-right: 1px solid var(--border); }
+        .pricing-right { padding: 52px; display: flex; flex-direction: column; justify-content: center; }
+
+        .pricing-left h2 {
+            font-family: var(--font-display);
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 800;
+            color: var(--text-1);
+            letter-spacing: -.02em;
+            margin-bottom: 16px;
+        }
+        .pricing-left > p { font-size: 14px; color: var(--text-2); line-height: 1.7; margin-bottom: 36px; }
+
+        .pricing-feature {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+        .pricing-feature-icon {
+            width: 22px; height: 22px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: rgba(45,212,245,0.1);
+            display: flex; align-items: center; justify-content: center;
+            margin-top: 2px;
+        }
+        .pricing-feature-icon i { font-size: 9px; color: var(--cyan); }
+        .pricing-feature h5 {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: 3px;
+        }
+        .pricing-feature p { font-size: 12px; color: var(--text-3); line-height: 1.5; }
+
+        .pricing-cta-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 36px;
+        }
+        .pricing-cta-box .sub {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 10px;
+        }
+        .pricing-cta-box h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: 12px;
+            letter-spacing: -.01em;
+        }
+        .pricing-cta-box p { font-size: 13px; color: var(--text-2); line-height: 1.6; margin-bottom: 24px; }
+
+        /* ── WAITLIST ── */
+        #waitlist {
+            background: var(--lc-bg);
+            color: var(--lc-text-1);
+        }
+        #waitlist .waitlist-inner h2 { color: var(--lc-text-1); }
+        #waitlist .waitlist-inner p  { color: var(--lc-text-2); }
+        #waitlist .tag {
+            border-color: rgba(14,100,200,0.2);
+            background: rgba(14,100,200,0.07);
+            color: #0a6fd4;
+        }
+        #waitlist .dot-live span { background: #0a6fd4; }
+        #waitlist .consent-note  { color: var(--lc-text-3); }
+        #waitlist .email-form {
+            background: #ffffff;
+            border-color: rgba(14,100,200,0.14);
+            box-shadow: 0 2px 18px rgba(14,100,200,0.08);
+        }
+        #waitlist .email-form input       { color: var(--lc-text-1); }
+        #waitlist .email-form input::placeholder { color: var(--lc-text-3); }
+        #waitlist .email-form button {
+            background: #0a6fd4;
+            color: #ffffff;
+        }
+        #waitlist .email-form button:hover { background: #0858a8; }
+
+        .waitlist-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+        .waitlist-inner h2 {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -.03em;
+            color: var(--text-1);
+            margin: 12px 0 18px;
+        }
+        .waitlist-inner p { font-size: 15px; color: var(--text-2); line-height: 1.7; margin-bottom: 36px; }
+
+        .email-form {
+            display: flex;
+            gap: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-btn);
+            overflow: hidden;
+            transition: border-color .2s;
+        }
+        .email-form:focus-within { border-color: var(--border-hi); }
+
+        .email-form input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 16px 20px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-1);
+        }
+        .email-form input::placeholder { color: var(--text-3); }
+
+        .email-form button {
+            background: var(--cyan);
+            border: none;
+            padding: 14px 24px;
+            color: var(--bg-deep);
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background .2s;
+            white-space: nowrap;
+        }
+        .email-form button:hover { background: #7ae8f8; }
+
+        .consent-note {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-top: 16px;
+        }
+
+        /* ── FAQ ── */
+        /* background handled by .lc class */
+
+        .faq-grid { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: border-color .2s;
+        }
+        .faq-item.open { border-color: rgba(45,212,245,0.2); }
+
+        .faq-q {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-1);
+            transition: color .2s;
+        }
+        .faq-q:hover { color: var(--cyan); }
+
+        .faq-icon {
+            flex-shrink: 0;
+            width: 28px; height: 28px;
+            border-radius: 7px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-2);
+            font-size: 13px;
+            transition: background .2s, color .2s, transform .3s;
+        }
+        .faq-item.open .faq-icon {
+            background: rgba(45,212,245,0.1);
+            color: var(--cyan);
+            transform: rotate(45deg);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .35s ease, padding .35s ease;
+        }
+        .faq-item.open .faq-a { max-height: 300px; }
+
+        .faq-a-inner {
+            padding: 0 24px 22px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--text-2);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--bg-deep);
+            border-top: 1px solid var(--border);
+            padding: 72px 24px 32px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 64px;
+        }
+
+        .footer-brand p {
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text-3);
+            max-width: 300px;
+            margin: 16px 0 24px;
+        }
+
+        .social-links { display: flex; gap: 12px; }
+        .social-link {
+            width: 36px; height: 36px;
+            border-radius: 9px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-3);
+            font-size: 14px;
+            text-decoration: none;
+            transition: border-color .2s, color .2s, background .2s;
+        }
+        .social-link:hover { border-color: var(--border-hi); color: var(--cyan); background: var(--cyan-dim); }
+
+        .footer-col h5 {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--text-1);
+            margin-bottom: 20px;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-col a {
+            font-size: 13px;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color .2s;
+        }
+        .footer-col a:hover { color: var(--cyan); }
+
+        .footer-email {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--cyan);
+            text-decoration: none;
+            margin-bottom: 8px;
+            transition: opacity .2s;
+        }
+        .footer-email:hover { opacity: .7; }
+
+        .footer-hq {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--text-3);
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+        }
+        .footer-bottom p, .footer-bottom a {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            text-decoration: none;
+        }
+        .footer-bottom a:hover { color: var(--text-2); }
+        .footer-bottom-links { display: flex; gap: 24px; flex-wrap: wrap; }
+
+        /* ── RESPONSIVE ── */
+
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-inner { grid-template-columns: 1fr; }
+            .pricing-left { border-right: none; border-bottom: 1px solid var(--border); }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 72px 20px; }
+            .nav-links, .nav-cta { display: none; }
+            .hamburger { display: flex; }
+            .products-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr; gap: 36px; }
+            .pricing-left, .pricing-right { padding: 32px 24px; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { letter-spacing: -.02em; }
+            .email-form { flex-direction: column; border-radius: var(--radius-btn); }
+            .email-form button { border-radius: 0 0 var(--radius-btn) var(--radius-btn); }
+        }
+
+        @media (max-width: 480px) {
+            .hero-btns { flex-direction: column; }
+            .hero-btns a { width: 100%; }
+            .trust-logos { gap: 24px; }
+        }
+
+        /* ── SCROLL ANIMATIONS ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-d1 { transition-delay: .1s; }
+        .reveal-d2 { transition-delay: .2s; }
+        .reveal-d3 { transition-delay: .3s; }
+
+        /* ── NAV ACTIVE STATE ── */
+        nav .active-nav { color: var(--cyan) !important; }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-share-nodes" style="color: var(--bg-deep); font-size:16px;"></i>
+            </div>
+            <span class="logo-text">Bayantx<span>360</span></span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#products">Ecosystem</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="mailto:bayantx360@gmail.com">Support</a></li>
+        </ul>
+
+         
+
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+    <a href="#products" onclick="closeMobile()">Ecosystem</a>
+    <a href="#how" onclick="closeMobile()">How It Works</a>
+    <a href="#pricing" onclick="closeMobile()">Pricing</a>
+    <a href="#faq" onclick="closeMobile()">FAQ</a>
+    <a href="mailto:bayantx360@gmail.com" onclick="closeMobile()">Support</a>
+     
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero grid-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="hero-inner">
+        <div class="tag" style="margin-bottom:28px;">
+            <span class="dot-live"><span></span><span></span></span>
+            Intelligence at the Edge
+        </div>
+
+        <div class="hero-code">
+            <span class="cmd">AI</span>
+            <span class="arg"> Analytics</span>
+            <span class="arg">Bespoke solution</span>
+            <span style="color:var(--text-2);">under 1 ecosystem:</span>
+            <span style="color:var(--cyan); animation: blink 1s step-end infinite;">Bayantx360</span>
+        </div>
+
+        <h1>
+            Advanced AI,<br class="hide-sm"> Research &<br>
+            <span class="gradient-text">Data Analytics</span>
+        </h1>
+
+        <p>
+            Bayantx360 is a modular platform providing Researchers, Analysts, and Students with low &amp; no-code AI, Research, and Data Analytics solutions — built for the modern knowledge economy.
+        </p>
+
+        <div class="hero-btns">
+            <a href="#products" class="btn-primary">
+                Explore Products <i class="fa-solid fa-arrow-right" style="font-size:11px;"></i>
+            </a>
+             
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ TRUST BANNER ═══════════════ -->
+<div class="trust">
+    <p class="trust-label">Powering Individuals, Researchers, Institutions and Businesses</p>
+    <div class="trust-logos">
+        <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> DataGuard</div>
+        <div class="trust-item"><i class="fa-solid fa-microchip"></i> AI-Core</div>
+        <div class="trust-item"><i class="fa-solid fa-bolt"></i> RapidStack</div>
+        <div class="trust-item"><i class="fa-solid fa-globe"></i> Ulster</div>
+        <div class="trust-item"><i class="fa-solid fa-layer-group"></i> AnalyticOS</div>
+    </div>
+</div>
+
+<!-- ═══════════════ PRODUCTS ═══════════════ -->
+<section id="products">
+    <div class="section-inner">
+        <div class="section-header reveal">
+            <div class="tag">Product Ecosystem</div>
+            <h2>AI-Powered Systems for Structured Research & Analysis</h2>
+            <div class="accent-line" style="margin-bottom:16px;"></div>
+            <p>Each product in the Bayantx360 ecosystem is engineered for a specific analytical workflow — modular, composable, and production-ready.</p>
+        </div>
+
+
+            <div class="products-grid">
+            <!-- PanelStatX -->
+            <div class="product-card reveal reveal-d1">
+                <div class="card-icon cyan">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <h3>PanelStatX</h3>
+                <p>The definitive SaaS for AI-powered panel regression. Simplify OLS, Fixed Effects, and Random Effects modeling with automated reporting — no code required.</p>
+                <a href="https://panelstatx.streamlit.app/" class="product-link" target="_blank" rel="noopener">
+                    Start Analysing <i class="fa-solid fa-arrow-right" style="font-size:10px;"></i>
+                </a>
+            </div>
+			
+
+			<!-- DataSynthX -->
+            <div class="product-card indigo reveal reveal-d2">
+                <div class="card-icon indigo">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <h3>DataSynthX</h3>
+                <p>Generate high-fidelity synthetic datasets that mirror original data — preserving statistical properties while ensuring privacy compliance for research and testing.</p>
+                <a href="https://datasynthx.streamlit.app/" class="product-link indigo" target="_blank" rel="noopener">
+                    Start Generating <i class="fa-solid fa-arrow-right" style="font-size:10px;"></i>
+                </a>
+            </div>
+			
+			
+            <!-- Upcoming -->
+            <div class="product-card stealth reveal reveal-d3">
+                <div class="lock-icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <p class="stealth-label">Coming Soon</p>
+                <h3>EmpiricX</h3>
+                <p>Specialized AI Engine for Faster Completion of Literature Review  — early access via waitlist.</p>
+                <a href="mailto:bayantx360@gmail.com" class="btn-outline-cyan">
+                    <i class="fa-regular fa-bell" style="font-size:10px;"></i> Join Waitlist
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section id="how" class="lc">
+    <div class="section-inner">
+        <div class="section-header reveal">
+            <div class="tag">Workflow of Our Products</div>
+            <h2>How It Works</h2>
+            <div class="accent-line" style="margin-bottom:16px;"></div>
+            <p>Bayantx360 ecosystem of products are designed as privacy-first solution. Research and data analytics solutions carried out on them are strictly platform-basd with users having totally control from start to finish. No interference </p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step-card reveal reveal-d1">
+                <div class="step-num">Step 01</div>
+                <h4>Connect Your Data</h4>
+                <p>Upload datasets directly or pull from integrated data sources. Bayantx360 accepts CSV, Excel, JSON, and direct API feeds with zero friction setup.</p>
+            </div>
+            <div class="step-card reveal reveal-d2">
+                <div class="step-num">Step 02</div>
+                <h4>Configure Your Model</h4>
+                <p>Select your analytical engine — OLS, Fixed Effects, synthetic generation, and more. Configure parameters through guided interfaces with real-time validation.</p>
+            </div>
+            <div class="step-card reveal reveal-d3">
+                <div class="step-num">Step 03</div>
+                <h4>Export Results</h4>
+                <p>Get auto-formatted reports, regression tables, charts, and annotated outputs ready for academic publication, stakeholder presentations, or downstream pipelines.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ PRICING ═══════════════ -->
+<section id="pricing">
+    <div class="section-inner">
+        <div class="section-header reveal">
+            <div class="tag">Pricing Model</div>
+            <h2>Flexible, Usage-Based</h2>
+            <div class="accent-line" style="margin-bottom:16px;"></div>
+            <p>Pay only for what you use. No bloated subscriptions — just access to the tools that drive your work.</p>
+        </div>
+
+        <div class="pricing-box reveal">
+            <div class="pricing-inner">
+                <div class="pricing-left">
+                    <h2>Value-Driven Modular Pricing</h2>
+                    <p>Bayantx360 operates on a pay-as-you-go model for all solutions. Whether you're an independent researcher or a scaling institutional team, our terms are designed for maximum flexibility and transparency.</p>
+
+                    <div class="pricing-feature">
+                        <div class="pricing-feature-icon"><i class="fa-solid fa-check"></i></div>
+                        <div>
+                            <h5>Transparent Tiers</h5>
+                            <p>Pay only for the features and products you actually utilize — no hidden charges or forced bundles.</p>
+                        </div>
+                    </div>
+                    <div class="pricing-feature">
+                        <div class="pricing-feature-icon"><i class="fa-solid fa-check"></i></div>
+                        <div>
+                            <h5>Enterprise Scalability</h5>
+                            <p>Dedicated compute resources and volume licensing for larger organizations and research institutions.</p>
+                        </div>
+                    </div>
+                    <div class="pricing-feature">
+                        <div class="pricing-feature-icon"><i class="fa-solid fa-check"></i></div>
+                        <div>
+                            <h5>Free-Tier Access</h5>
+                            <p>Core tooling available at no cost so every student and independent researcher can get started immediately.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pricing-right">
+                    <div class="pricing-cta-box">
+                        <p class="sub">Request Quote</p>
+                        <h3>Bespoke Solutions</h3>
+                        <p>For custom API integrations, institutional research licenses, or high-volume deployment, contact our sales desk directly.</p>
+                        <a href="mailto:bayantx360@gmail.com" class="btn-primary" style="width:100%; justify-content:center;">
+                            Message Sales <i class="fa-regular fa-envelope" style="font-size:12px;"></i>
+                        </a>
+                    </div>
+
+       
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ WAITLIST ═══════════════ -->
+<section id="waitlist">
+    <div class="orb" style="width:400px;height:400px;background:rgba(14,100,200,0.07);top:0;left:50%;transform:translateX(-50%);position:absolute;pointer-events:none;filter:blur(100px);"></div>
+    <div class="waitlist-inner" style="position:relative;z-index:2;">
+        <div class="tag" style="margin:0 auto 20px; display:inline-flex;">
+            <span class="dot-live"><span></span><span></span></span>
+            Stay Notified
+        </div>
+        <h2>Be First in Line</h2>
+        <p>We're constantly shipping new AI tools. Drop your email to receive early access invitations, platform updates, and research resources.</p>
+
+        <div class="email-form">
+            <input type="email" placeholder="your@email.com" aria-label="Email address">
+            <button type="button">Get Early Access</button>
+        </div>
+        <p class="consent-note">Submitting implies consent to system updates &amp; product announcements.</p>
+    </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section id="faq" class="lc">
+    <div class="section-inner">
+        <div class="section-header reveal">
+            <div class="tag">FAQ</div>
+            <h2>Common Questions</h2>
+            <div class="accent-line" style="margin-bottom:16px;"></div>
+            <p>Everything you need to know before getting started with the Bayantx360 ecosystem.</p>
+        </div>
+
+        <div class="faq-grid">
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    What is Bayantx360?
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">Bayantx360 is a modular AI and analytics platform designed to give researchers, data analysts, students, and enterprise teams access to advanced quantitative tools — without requiring deep programming expertise. Each product in the ecosystem targets a specific workflow, from panel regression to synthetic data generation.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    Do I need to know how to code to use the tools?
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">No. All core products are built on a low-code and no-code philosophy. You interact through guided interfaces, upload your data, configure parameters visually, and receive formatted outputs — all without writing a single line of code. Advanced users can optionally access API integrations for programmatic access.</div>
+                </div>
+            </div>
+
+			<div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    Is there free trial for products in the Bayantx360 Ecosystem?
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">No. We currently don't offer free trial. But we can facilitate an interactive live demo session to guide you how to use any of our products.</div>
+                </div>
+			</div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    What is PanelStatX used for?
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">PanelStatX is an AI-powered panel regression SaaS. It simplifies econometric modelling — including OLS, Fixed Effects (FE), and Random Effects (RE) estimation — and generates automated, publication-ready regression tables and diagnostic reports. It's ideal for academic researchers, economists, and policy analysts working with panel datasets.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    What does DataSynthX do?
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">DataSynthX generates synthetic datasets that statistically mirror your original data. It's designed for researchers who need privacy-safe alternatives to sensitive datasets, developers who need test data, and teams who need to augment limited datasets for model training. The synthetic output preserves distributional properties and correlations found in the source data.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    How does pricing work?
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">Bayantx360 operates on a modular, pay-as-you-go model. You pay only for the features and products you use. There's no single all-or-nothing subscription. Core tiers exist for individual users, while enterprise and institutional plans offer dedicated resources and volume licensing. Students and academic institutions may also apply for preferential rates.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    How do I stay updated on new product launches?
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">Join the waitlist above to receive early access invitations and platform announcements. You can also follow us on X (Twitter), GitHub, LinkedIn, and Discord for real-time updates. New products in the ecosystem are announced to waitlist members first.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="#" class="logo" style="text-decoration:none;">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-share-nodes" style="color:var(--bg-deep);font-size:15px;"></i>
+                    </div>
+                    <span class="logo-text">Bayantx<span>360</span></span>
+                </a>
+                <p>The ultimate hub for high-performance AI SaaS, econometric analysis, and adaptive analytics systems. Engineering the future of data intelligence.</p>
+                <div class="social-links">
+                    <a href="https://x.com/bayantx360" class="social-link" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="social-link" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h5>Ecosystem</h5>
+                <ul>
+                    <li><a href="#">PanelStatX</a></li>
+                    <li><a href="#">DataSynthX</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Changelog</a></li>
+                    <li><a href="#">Roadmap</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Bayantx360</h5>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Partners</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Get in Touch</h5>
+                <a href="mailto:bayantx360@gmail.com" class="footer-email">bayantx360@gmail.com</a>
+                <p class="footer-hq" style="margin-bottom:20px;">HQ: Global Operations</p>
+                <ul>
+                    <li><a href="#">Support Center</a></li>
+                    <li><a href="#">Status Page</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Bayantx360 Ecosystem. Engineered for Precision.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Legal Architecture</a>
+                <a href="#">Privacy Protocol</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+</style>
+
+<script>
+// Mobile nav
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+    const icon = hamburger.querySelector('i');
+    icon.className = mobileNav.classList.contains('open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+});
+function closeMobile() {
+    mobileNav.classList.remove('open');
+    hamburger.querySelector('i').className = 'fa-solid fa-bars';
+}
+
+// FAQ accordion
+function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Active nav highlight
+const sections = document.querySelectorAll('section[id], div[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+        a.classList.remove('active-nav');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active-nav');
+    });
+}, { passive: true });
+</script>
+</body>
+</html>
